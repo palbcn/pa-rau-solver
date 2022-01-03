@@ -1,0 +1,19 @@
+{
+  "name": "pa-rau-solver",
+  "version": "1.0.0",
+  "description": "Paraulogic solver",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "PAL BCN <palbcn@yahoo.com>",
+  "license": "MIT"
+}
