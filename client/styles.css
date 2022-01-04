@@ -9,7 +9,7 @@ body {
   font-size: 14px;
 }
 header {
-  background-color: #69f;
+  background-color: black;
   color: white;
   text-align: center;
   padding: 40px;
@@ -19,13 +19,18 @@ main {
   margin: 0 auto;
   min-height: 600px;
   padding: 20px;
+  text-align:center;
 }
 main button { 
   display: none; 
 }
 main input {
+  text-align:center;
   font-size: 40px;
   border: 0;
+}
+main input:focus {
+  outline: none;
   border-bottom: 1px solid black;
 }
 #question-letters {
