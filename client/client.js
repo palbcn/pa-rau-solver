@@ -1,12 +1,29 @@
 
-function appendSolution(parent,solution) {
-  let element = document.createElement('p');
-  element.innerHTML = `${solution.word} - ${solution.points}`;
+function appendSolution(parent,solution,index) {
+  let element = document.createElement('div');
+  element.className = 'results-item';
+  if (solution.tuti) element.className+=" tuti";
+  element.innerHTML = `<span>${index+1}</span> <span>${solution.word}</span> <span>${solution.points}</span>`;
   parent.appendChild(element);
 }
 
 function appendSolutions(parent,solutions) {
-  solutions.forEach( s => appendSolution(parent,s) );
+  parent.innerHTML = '';
+  solutions.forEach( (s,i) => appendSolution(parent,s,i) );
+}
+
+function setletters(letters){
+  /*<!--div id="letters-grid">
+      <div class="letter-out"><p class="letter-in">1</p></div>
+      <div class="letter-out"><p class="letter-in">2</p></div>
+      <div class="letter-out"><p class="letter-in">3</p></div>
+      <div class="letter-out"><p class="letter-in">4</p></div>
+      <div class="letter-out"><p class="letter-in">5</p></div>
+      <div class="letter-out"><p class="letter-in">6</p></div>
+      <div class="letter-out"><p class="letter-in">7</p></div>
+  </div--> */
+  letters = letters.toUpperCase();
+  document.getElementById("question-letters").innerHTML = `<strong>${letters[0]}</strong>${letters.slice(1)}`;
 }
 
 document.body.onload = function () {
@@ -18,12 +35,24 @@ document.body.onload = function () {
       document.getElementById('dictionary-entries').textContent = data.dictionaryentries;
     });
 
+  document.getElementById('letters-input').addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+      document.getElementById('place-button').click();
+      return true;
+    } else {
+      return false;
+    }
+  })
+  
   document.getElementById('place-button').onclick = function () {
     let letters = document.getElementById('letters-input').value;
+    setletters(letters);
+    document.getElementById('letters-input').value = '';
     fetch(`/words/${letters}`)
       .then(response => response.json())
       .then(data => {
-        document.getElementById('results-info').textContent = data.total;
+        document.getElementById('results-info').innerHTML = `<strong>${data.total}</strong> paraules`;
         appendSolutions(document.getElementById('results-list'),data.solutions);
       })
   }

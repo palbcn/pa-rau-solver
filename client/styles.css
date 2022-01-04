@@ -1,13 +1,77 @@
 html {
   box-sizing: border-box;
 }
-
 *, *:before, *:after {
   box-sizing: inherit; margin:0;padding:0;
 }
-
-/*-------------------------------------------------------*/
 body {
   font-family: Roboto,Arial,sans-serif;
   font-size: 14px;
+}
+header {
+  background-color: #69f;
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 600px;
+  padding: 20px;
+}
+main button { 
+  display: none; 
+}
+main input {
+  font-size: 40px;
+  border: 0;
+  border-bottom: 1px solid black;
+}
+#question-letters {
+  font-size: 64px;
+  text-align:center;
+  padding: 20px;
+}
+#question-letters strong {
+  color: orange;
+}
+#results-info {
+  font-size: 32px;
+  text-align:center;
+  padding: 12px;
+  border-bottom: 1px solid orange;
+}
+#results-list {
+  font-size: 24px;
+  border-bottom: 1px solid orange;
+}
+
+.results-item {
+  display: grid;
+  grid-template-columns: 10% 70% 10%;
+  grid-template-rows: auto;
+  column-gap: 12px;
+}
+.results-item span:nth-child(1) {
+  justify-self: end;
+}
+.results-item span:nth-child(2) {
+  font-weight: bold;
+}
+.results-item span:nth-child(3) {
+  color:#666;
+  justify-self: end;
+}
+.results-item.tuti span:nth-child(2) {
+  color: orange;
+}
+footer {
+  background-color:black;
+  color: white;
+  padding: 20px;
+}
+footer span {
+  font-weight: bold;
+  color: #eef;
 }

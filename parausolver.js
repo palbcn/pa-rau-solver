@@ -40,17 +40,17 @@ export function solutionPoints(solution) {
   let c = solution.word.length;
   if (c == 3) return 1;
   if (c == 4) return 2;
-  if (solution.missing.length==0) c += 10;  // tuti
+  if (solution.tuti) c += 10;  // tuti
   return c;
 }
 
 //****************************************************
-function removeDupesInSortedArray(arr, comparefunc) {
+function removeDupesInSortedArray(arr, equalfunc) {
   let res = [];
   if (arr.length < 2) return arr;
   let i = 0;
   while (i < arr.length - 1) {
-    if (!comparefunc(arr[i], arr[i + 1])) res.push(arr[i]);
+    if (!equalfunc(arr[i], arr[i + 1])) res.push(arr[i]);
     i++;
   }
   return res;
@@ -94,7 +94,8 @@ function checkMatch(mainletter, letters, dictionaryEntry) {
     let index = missing.indexOf(letter);
     if (index !== -1) missing.splice(index, 1);
   }
-  let solution = { ...dictionaryEntry, placed, missing }
+  let solution = { ...dictionaryEntry, placed, missing };
+  solution.tuti = (missing.length==0);
   solution.points = solutionPoints(solution);
   return solution;
 }
@@ -102,7 +103,7 @@ function checkMatch(mainletter, letters, dictionaryEntry) {
 
 //****************************************************
 export function findWords(dictionary, letters) {
-  letters = letters.split('');
+  letters = properUpperCaseLetters(letters).split('');
   let mainletter = letters[0];
   letters.sort();
   let results = dictionary
@@ -119,23 +120,9 @@ export function prepareDictionary(dictText) {
     let plainword = properUpperCaseLetters(word);
     return { word, plainword, letters: plainword.split('').sort() }
   });
+  dictionary.sort( (a,b) => a.word.localeCompare(b.word) );
+  dictionary = removeDupesInSortedArray(dictionary, (a,b) => a.word==b.word);
   return dictionary;
 }
 
-
-
-
-//****************************************************
-//****************************************************
-function readAndPrepareDictionary(dictname) {
-  dictname = dictname || process.env.DICTIONARY || "./dicts/en.txt";
-  let dictionaryText = fs.readFileSync(dictname, 'utf8');
-  return prepareDictionary(dictionaryText);
-}
-
-function quicktest() {
-  let dictionary = readAndPrepareDictionary('./dicts/ca.utf8.txt');
-  let solutions = findWords(dictionary, 'TNMAEI');
-  console.log(JSON.stringify(solutions, null, 2));
-}
 
