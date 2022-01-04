@@ -3,7 +3,7 @@ import express from 'express';
 import { prepareDictionary, findWords } from "./parausolver.js";
 
 (async function main() {
-  let dictname = "./.data/ca.softcatala.txt";
+  let dictname = "./dicts/ca.softcatala.txt";
   let dictionary = prepareDictionary(fs.readFileSync(dictname, 'utf8'));
 
   let app = express();
