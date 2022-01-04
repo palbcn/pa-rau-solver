@@ -24,6 +24,19 @@ function setletters(letters){
   </div--> */
   letters = letters.toUpperCase();
   document.getElementById("question-letters").innerHTML = `<strong>${letters[0]}</strong>${letters.slice(1)}`;
+  let figures = document.getElementById("figures");
+  figures.style.visibility = 'visible';
+  let figuresDom = figures.contentDocument;
+  let mainletterText = figuresDom.getElementById('letter-main');
+  mainletterText.children[0].textContent = letters[0];
+  for (let i = 1; i < 7; i++) {
+    let letterText = figuresDom.getElementById('letter-' + i);
+    letterText.children[0].textContent = letters[i] ? letters[i] : '';
+  }
+
+
+
+
 }
 
 document.body.onload = function () {
